@@ -1,0 +1,234 @@
+[
+    {
+        "patterns": [
+            {
+                "part": "etc.*?issue|etc.*?hosts|etc.*?passwd|windows/win.ini|proc\\/version|WEB-INF\\/web.xml",
+                "type": "regex"
+            },
+            {
+                "part":"\\/hosts|\\.bash_history|bashrc|config\\[root_dir]\\=|appserv_root=|path\\[docroot]\\=|GALLERY_BASEDIR\\=|_SERVER\\[DOCUMENT_ROOT]|_CONF\\[path]|mosConfig_absolute_path\\=",
+                "type":"match"
+            }   
+        ],
+        "tag": "file_include", 
+        "level": "high"
+    },
+    {
+        "patterns": [
+            {
+                "part": "\\<.+javascript:window\\[.{1}\\\\x|<.*=(&#\\d+?;?)+?>|\\<.*(data|src)=data:text\\/html.*>|\\b(alert\\(|confirm\\(|expression\\(|s*script\\(|prompt\\(|benchmark\\s*?\\(.*\\))",
+                "type": "regex"
+            }
+        ],
+        "tag": "XSS", 
+        "level": "medium"
+    },
+    {
+        "patterns": [
+            {
+                "part": "nslookup|whoami|set|dir|net",
+                "type": "match"
+            }
+        ],
+        "tag": "command", 
+        "level": "high"
+    },
+    {
+        "patterns": [
+            {
+                "part": "(sleep\\s*?\\(.*\\)|\\b(group_)?concat[\\s\\/\\*]*?\\([^\\)]+?\\)|\bcase[\\s\/\\*]*?when[\\s\/\\*]*?\\([^\\)]+?\\)|load_file\\s*?\\()|<[a-z]+?\\b[^>]*?\\bon([a-z]{4,})\\s*?=|^\\+\\/v(8|9)|\\b(and|or|OR)\\b\\s*?([\\(\\)'\"\\d]+?=[\\(\\)'\"\\d]+?|[\\(\\)'\"a-zA-Z]+?=[\\(\\)'\"a-zA-Z]+?|>|<|\\s+?[\\w]+?\\s+?\\bin\\b\\s*?\\(|\\blike\\b\\s+?[\"'])|\\/\\*.*\\*\\/|\\bEXEC\\b|UNION.+?SELECT\\s*(\\(.+\\)\\s*|@{1,2}.+?\\s*|\\s+?.+?|(`|'|\").*?(`|'|\")\\s*)|UPDATE\\s*(\\(.+\\)\\s*|@{1,2}.+?\\s*|\\s+?.+?|(`|'|\").*?(`|'|\")\\s*)SET|INSERT\\s+INTO.+?VALUES|(SELECT|DELETE)@{0,2}(\\(.+\\)|\\s+?.+?\\s+?|(`|'|\").*?(`|'|\"))FROM(\\(.+\\)|\\s+?.+?|(`|'|\").*?(`|'|\"))|(CREATE|ALTER|DROP|TRUNCATE)\\s+(TABLE|DATABASE)",
+                "type": "regex"
+            },
+            {
+                "part": "(convert\\s*?\\(int,CHAR\\(|\\(CONVERT\\s*?\\(INT|\\b(and|or|OR|xor|XOR|AND|/**/)\\b",
+                "type": "regex"
+            },
+            {
+                "part": "\\(SELECT.*FROM\\)|\\(union.*SELECT\\)|\\(select.*load_file\\)",
+                "type": "regex"
+            },
+            {
+                "part": "SELECT.*concat\\(",
+                "type": "regex"
+            },
+            {
+                "part": "pg_sleep|benchmark\\(|if\\(|shutdown",
+                "type": "match"
+            }
+        ],
+        "tag": "sqlinject", 
+        "level": "high"
+    },
+    {
+        "patterns": [
+            {
+                "part": "_memberAccess",
+                "type": "match"
+            },
+            {
+                "part": "debug.*expression",
+                "type": "regex"
+            },
+            {
+                "part": "_memberAccess.*java.lang.Runtime",
+                "type": "regex"
+            }
+        ],
+        "tag": "struts2", 
+        "level": "high"
+    },
+    {
+        "patterns": [
+            {
+                "part": "assert\\(|eval\\(|phpinfo\\(|echo\\(|print\\(|var_dump\\(|print_r\\(|Execute\\(|Response.Write\\(|z0=GB2312|z0=UTF-8|\\${new java.lang",
+                "type": "regex"
+            }
+        ],
+        "tag": "code_excute", 
+        "level": "high"
+    },
+    {
+        "patterns": [
+            {
+                "part": "shell|allow_url_include|auto_prepend_file|php://input",
+                "type": "match"
+            }
+        ],
+        "tag": "code_rce", 
+        "level": "high"
+    },
+    {
+        "patterns": [
+            {
+                "part": "java.lang.String.*println",
+                "type": "regex"
+            },
+            {
+                "part": "java.lang.ProcessBuilder",
+                "type": "match"
+            }
+        ],
+        "tag": "java expression", 
+        "level": "high"
+    },
+    {
+        "patterns": [
+            {
+                "part": ".git/config",
+                "type": "match"
+            }
+        ],
+        "tag": "git", 
+        "level": "high"
+    },
+    {
+        "patterns": [
+            {
+                "part": ".DS_Store",
+                "type": "match"
+            }
+        ],
+        "tag": "DS_Store", 
+        "level": "high"
+    },
+    {
+        "patterns": [
+            {
+                "part": ".svn\\\/(all-wcprops|all-wcpropss|entries|trunk)",
+                "type": "match"
+            }
+        ],
+        "tag": "svn", 
+        "level": "high"
+    },
+    {
+        "patterns": [
+            {
+                "part": "vul_webscan",
+                "type": "match"
+            }
+        ],
+        "tag": "360Webscan", 
+        "level": "low"
+    },
+    {
+        "patterns": [
+            {
+                "part": "dbappsecurity|dbappsec|dbapp|\"%d5\\'|%21(()%26%26%21%7c*%7c*%7c|(()))",
+                "type": "match"
+            }
+        ],
+        "tag": "anhengWebscan", 
+        "level": "low"
+    },
+    {
+        "patterns": [
+            {
+                "part": "vulnweb.com|acunetix|bxss.me|injected_by_wvs|wvstest",
+                "type": "match"
+            }
+        ],
+        "tag": "AWVS", 
+        "level": "low"
+    },
+    {
+        "patterns": [
+            {
+                "part": "crossdomain.xml",
+                "type": "match"
+            }
+        ],
+        "tag": "crossdomain.xml", 
+        "level": "low"
+    },
+    {
+        "patterns": [
+            {
+                "part": "CVS/ROOT",
+                "type": "match"
+            }
+        ],
+        "tag": "cvs_root", 
+        "level": "low"
+    },
+    {
+        "patterns": [
+            {
+                "part": "\\/axis\\/services",
+                "type": "match"
+            }
+        ],
+        "tag": "Aixs", 
+        "level": "low"
+    },
+    {
+        "patterns": [
+            {
+                "part": "\\/server-status",
+                "type": "match"
+            }
+        ],
+        "tag": "Apache status", 
+        "level": "low"
+    },
+    {
+        "patterns": [
+            {
+                "part": "~.aspx",
+                "type": "match"
+            }
+        ],
+        "tag": "IIS short", 
+        "level": "low"
+    },
+    {
+        "patterns": [
+            {
+                "part": "services\\/listServices",
+                "type": "match"
+            }
+        ],
+        "tag": "services scan", 
+        "level": "low"
+    }
+]
