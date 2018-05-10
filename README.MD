@@ -1,12 +1,12 @@
 ## Logpara
 > 一个对常见的web日志进行解析处理的粗糙DEMO。  
 
-[![Python 2.7](https://img.shields.io/badge/python-2.7-yellow.svg)](https://www.python.org/)  [![License](https://img.shields.io/badge/license-GPLv2-red.svg)]
+[![Python 2.7](https://img.shields.io/badge/python-2.7-yellow.svg)](https://www.python.org/)  [![License](https://img.shields.io/badge/license-GPLv2-red.svg)](https://github.com/0xa-saline/Logpara/blob/master/GPL-2.0)
 
 #### 目标
 - 对被请求的URL进行解析，解析出是否常见的攻击方式
 - 对来访的IP进行深度解析，包含经纬度,物理地址
-- 对来访的UA进行深度解析，解析出设备，是否爬虫
+- 对来访的UA进行深度解析，解析出设备,浏览器种类,是否爬虫
 - 把全部的日志解析了入库，做RELK处理
 
 
