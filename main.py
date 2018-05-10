@@ -163,7 +163,7 @@ if __name__ == '__main__':
     option, _ = parser.parse_args()
     logtype = str(option.type).lower()
     logfile  = option.file
-    if not logfile or logtype:
+    if not logfile or not logtype:
         parser.print_help()
     
     main(logtype,logfile)
