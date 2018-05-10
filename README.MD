@@ -4,8 +4,8 @@
 [![Python 2.7](https://img.shields.io/badge/python-2.7-yellow.svg)](https://www.python.org/)  [![License](https://img.shields.io/badge/license-GPLv2-red.svg)](https://github.com/boy-hack/w9scan/blob/master/GPL-2.0)
 
 #### 目标
-- 对恶意的URL进行解析，解析出是否常见的攻击方式
-- 对恶意攻击的IP进行深度解析，包含经纬度,物理地址
+- 对被请求的URL进行解析，解析出是否常见的攻击方式
+- 对来访的IP进行深度解析，包含经纬度,物理地址
 - 把全部的日志解析了入库，做RELK处理
 
 
@@ -24,7 +24,7 @@
     ```
 
 - `python main.py --type apache --file ~/Downloads/access_log`
-- `python main.py --type tomcat --file /Users/saline/Downloads/XX网/logs`
+- `python main.py --type tomcat --file ～/Downloads/XX网/logs／`
 
 
 RELK是什么
@@ -89,8 +89,7 @@ server.host: "0.0.0.0"
     不能识别也是很难受，但是自己修改正则去匹配吧
 - 没有weblogic/oracle日志模块？  
     暂时没有测试环境
-- 如何交流?  
-    email或者开issue都可以，如果想研究代码可以参考下面文章
+
 
 ## 免责
 日志分析的项目仅用于学习，自检网络安全，禁止用于其他用途。
