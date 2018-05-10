@@ -23,9 +23,18 @@
     redis_key = 'logstash:redis'
     ```
 
-- `python main.py --type apache --file ~/Downloads/access_log`
-- `python main.py --type tomcat --file ～/Downloads/XX网/logs／`
+- 使用
 
+```
+Usage: main.py --type IIS|Apache|Tomcat|Nginx --file file|directory
+
+log parser
+
+Options:
+  -h, --help   show this help message and exit
+  --type=TYPE  chose which log type
+  --file=FILE  chose file or directory
+```
 
 RELK是什么
 ----
