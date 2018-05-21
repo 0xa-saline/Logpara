@@ -9,6 +9,12 @@ try:
 except:
     print "try to pip install pyyaml ua-parser user-agents"
 
+import sys
+default_encoding = 'utf-8'
+if sys.getdefaultencoding() != default_encoding:
+    reload(sys)
+    sys.setdefaultencoding(default_encoding)
+    
 EXCLUDE_EXTENSIONS = ("ico","3ds", "3g2", "3gp", "7z", "DS_Store", "a", "aac", "adp", "ai", "aif", "aiff", "apk", "ar", "asf", "au", "avi", "bak", "bin", "bk", "bmp", "btif", "bz2", "cab", "caf", "cgm", "cmx", "cpio", "cr2", "dat", "deb", "djvu", "dll", "dmg", "dmp", "dng", "doc", "docx", "dot", "dotx", "dra", "dsk", "dts", "dtshd", "dvb", "dwg", "dxf", "ear", "ecelp4800", "ecelp7470", "ecelp9600", "egg", "eol", "eot", "epub", "exe", "f4v", "fbs", "fh", "fla", "flac", "fli", "flv", "fpx", "fst", "fvt", "g3", "gif", "gz", "h261", "h263", "h264", "ico", "ief", "image", "img", "ipa", "iso", "jar", "jpeg", "jpg", "jpgv", "jpm", "jxr", "ktx", "lvp", "lz", "lzma", "lzo", "m3u", "m4a", "m4v", "mar", "mdi", "mid", "mj2", "mka", "mkv", "mmr", "mng", "mov", "movie", "mp3", "mp4", "mp4a", "mpeg", "mpg", "mpga", "mxu", "nef", "npx", "o", "oga", "ogg", "ogv", "otf", "pbm", "pcx", "pdf", "pea", "pgm", "pic", "png", "pnm", "ppm", "pps", "ppt", "pptx", "ps", "psd", "pya", "pyc", "pyo", "pyv", "qt", "rar", "ras", "raw", "rgb", "rip", "rlc", "rz", "s3m", "s7z", "scm", "scpt", "sgi", "shar", "sil", "smv", "so", "sub", "swf", "tar", "tbz2", "tga", "tgz", "tif", "tiff", "tlz", "ts", "ttf", "uvh", "uvi", "uvm", "uvp", "uvs", "uvu", "viv", "vob", "war", "wav", "wax", "wbmp", "wdp", "weba", "webm", "webp", "whl", "wm", "wma", "wmv", "wmx", "woff", "woff2", "wvx", "xbm", "xif", "xls", "xlsx", "xlt", "xm", "xpi", "xpm", "xwd", "xz", "z", "zip", "zipx")
 
 def push_msg(msg):
@@ -94,10 +100,15 @@ def parser_ip(ipaddr):
                 else:
                     addr = subdivision+"\t"+city
             else:
-                addr = country +"\t"+subdivision+"\t"+city
+                if subdivision in [u'台北市',u'新北市',u'基隆市',u'新竹市',u'嘉义市',u'台中市',u'台南市',u'高雄市',u'屏东市']:
+                    subdivision = "台湾省"
+                if country in [u'香港',u'澳门']:
+                    subdivision = country +' '+ subdivision
+                    country = '中国'
+                addr = country.replace(u'台湾',u'中国') +"\t"+subdivision+"\t"+city
 
             info["address"] = addr
-            info["country"] = country
+            info["country"] = country.replace(u'台湾',u'中国')
             info["subdivision"]= subdivision
             info["city"] = city
         except Exception as e:
