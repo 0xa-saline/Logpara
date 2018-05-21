@@ -101,7 +101,7 @@ def parser_ip(ipaddr):
                     addr = subdivision+"\t"+city
             else:
                 if subdivision in [u'台北市',u'新北市',u'基隆市',u'新竹市',u'嘉义市',u'台中市',u'台南市',u'高雄市',u'屏东市']:
-                    subdivision = "台湾省"
+                    subdivision = "台湾省"+' '+subdivision
                 if country in [u'香港',u'澳门']:
                     subdivision = country +' '+ subdivision
                     country = '中国'
