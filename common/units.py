@@ -78,11 +78,8 @@ def parser_ua(ua_string):
     except Exception as e:
         return info
 
-def parser_ip(ipaddr):
-    '''
-    解析IP地址的经纬度
-    '''
     info = {}
+    addr = ""
     g1 = GeoIPUtil()
     g2 = GeoIP2Util()
     if is_intranet(ipaddr):
@@ -95,25 +92,39 @@ def parser_ip(ipaddr):
             info['jingdu'] = longitude
             country, subdivision, city =  g2.get_ip_location(ipaddr)
             if country == u"中国":
-                if subdivision.find(u'市')==-1:
-                    addr = subdivision+u"省\t"+city
+                if not subdivision and not city:
+                    addr = country
+                elif subdivision.find(u'市')==-1 and subdivision not in [u'上海'] and city:
+                    addr = subdivision.strip(u'省')+u"省\t"+city
+                elif subdivision and not city:
+                    addr = country +' '+ subdivision
                 else:
                     addr = subdivision+"\t"+city
             else:
                 if subdivision in [u'台北市',u'新北市',u'基隆市',u'新竹市',u'嘉义市',u'台中市',u'台南市',u'高雄市',u'屏东市']:
                     subdivision = "台湾省"+' '+subdivision
-                if country in [u'香港',u'澳门']:
+                if country in [u'香港',u'澳门'] and subdivision:
                     subdivision = country +' '+ subdivision
                     country = '中国'
-                addr = country.replace(u'台湾',u'中国') +"\t"+subdivision+"\t"+city
+                elif country in [u'香港',u'澳门'] and not subdivision:
+                    subdivision = country
+                    country = '中国'
 
-            info["address"] = addr
+                if not subdivision and not city:
+                    addr = country
+                elif subdivision and not city:
+                    addr = country +' '+ subdivision
+                else:
+                    addr = country.replace(u'台湾',u'中国') +"\t"+subdivision+"\t"+city
+            if addr:
+                info["address"] = addr
+
             info["country"] = country.replace(u'台湾',u'中国')
             info["subdivision"]= subdivision
             info["city"] = city
         except Exception as e:
+            print str(e)
             return info
-    return info
 
 def check_rule(file_data):
     '''
